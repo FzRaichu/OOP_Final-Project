@@ -98,8 +98,8 @@ public class Main {
         }
     }
 
-    private void viewAgents() {
-    	ArrayList<Agent> list = repository.getAll();
+    private void printAgents(){
+        ArrayList<Agent> list = repository.getAll();
         if (list.isEmpty()) {
             System.out.println(">> No Data Available.");
             return;
@@ -110,6 +110,10 @@ public class Main {
             System.out.println(agent);
             System.out.println();
         }
+    }
+
+    private void viewAgents() {
+    	printAgents();
         System.out.println("Press Enter to Continue...");
         scan.nextLine();
     }
@@ -135,6 +139,13 @@ public class Main {
     }
 
     private void updateAgent() {
+    	if(repository.getAll().isEmpty()) {
+    		System.out.println(">> No Data Available.");
+    		System.out.println("Press Enter to Continue...");
+            scan.nextLine();
+            return;
+    	}
+        printAgents();
         System.out.print("Enter ID to update: ");
         String id = scan.nextLine();
         Agent existing = repository.findById(id);
@@ -159,6 +170,13 @@ public class Main {
     }
 
     private void deleteAgent() {
+    	if(repository.getAll().isEmpty()) {
+    		System.out.println(">> No Data Available.");
+    		System.out.println("Press Enter to Continue...");
+            scan.nextLine();
+            return;
+    	}
+        printAgents();
         System.out.print("Enter ID to delete: ");
         String id = scan.nextLine();
         repository.delete(id);
@@ -168,7 +186,7 @@ public class Main {
 
 	public Main() {
 		// TODO Auto-generated constructor stub
-//		seedData();
+		seedData();
 		int choice;
         while (true){
         	clearConsole();
